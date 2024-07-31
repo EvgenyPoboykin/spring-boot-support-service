@@ -1,0 +1,2 @@
+INSERT INTO public.stage (value, label) VALUES ('NEW', 'Новое'), ('DONE', 'Сделано'), ('IN_PROCESS', 'В процессе'), ('REJECTED', 'Отклонено');
+INSERT INTO public.issue (target_uri, image, description, client_id, client_name, stage, created_at, updated_at) VALUES ('/', 'base64 string', 'test', '1', 'Evgeny Poboykin', 'NEW', '2024-04-25T12:25', '2024-04-25T12:25')
