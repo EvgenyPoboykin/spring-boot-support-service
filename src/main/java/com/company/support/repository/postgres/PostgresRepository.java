@@ -1,5 +1,6 @@
 package com.company.support.repository.postgres;
 
+import com.company.support.interfaces.RepositoryInterface;
 import com.company.support.mappers.CommentRowMapper;
 import com.company.support.mappers.IssueRowMapper;
 import com.company.support.mappers.StageRowMapper;
@@ -16,7 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class RepositoryIssues implements RepositoryInterface {
+public class PostgresRepository implements RepositoryInterface {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -25,7 +26,7 @@ public class RepositoryIssues implements RepositoryInterface {
     public List<Issue> getIssues(IssuesDto params) {
         var sql = "SELECT * FROM issue ORDER BY created_at DESC LIMIT ? OFFSET ?";
 
-        PageRequest pageable =  PageRequest.of(params.page() - 1, params.pageSize());
+        PageRequest pageable =  PageRequest.of(params.getPage() - 1, params.getPageSize());
 
         System.out.println(pageable.getPageSize() + " -- " + pageable.getOffset());
         return jdbcTemplate.query(
@@ -58,13 +59,13 @@ public class RepositoryIssues implements RepositoryInterface {
 
         return jdbcTemplate.update(
                 sql,
-                issue.targetUri(),
-                issue.image(),
-                issue.description(),
+                issue.getTargetUri(),
+                issue.getImage(),
+                issue.getDescription(),
                 new Date(),
                 new Date(),
-                issue.clientId(),
-                issue.clientName()
+                issue.getClientId(),
+                issue.getClientName()
         );
     }
 
@@ -74,7 +75,7 @@ public class RepositoryIssues implements RepositoryInterface {
 
         return jdbcTemplate.update(
                 sql,
-                issue.stage(),
+                issue.getStage(),
                 new Date(),
                 issueId
         );
@@ -94,9 +95,9 @@ public class RepositoryIssues implements RepositoryInterface {
         return jdbcTemplate.update(
                 sql,
                 issueId,
-                comment.description(),
-                comment.clientId(),
-                comment.clientName()
+                comment.getDescription(),
+                comment.getClientId(),
+                comment.getClientName()
         );
     }
 

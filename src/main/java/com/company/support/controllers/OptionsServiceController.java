@@ -1,7 +1,8 @@
 package com.company.support.controllers;
 
+import com.company.support.interfaces.OptionsServiceInterface;
 import com.company.support.model.IssueStage;
-import com.company.support.repository.postgres.RepositoryIssues;
+import com.company.support.repository.postgres.PostgresRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
@@ -15,9 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class OptionsServiceController implements OptionsServiceInterface {
-    RepositoryIssues repository;
+    PostgresRepository repository;
 
-    public OptionsServiceController(RepositoryIssues repository) {
+    public OptionsServiceController(PostgresRepository repository) {
         this.repository = repository;
     }
 

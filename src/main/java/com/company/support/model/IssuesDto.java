@@ -9,12 +9,4 @@ public class IssuesDto {
     private int pageSize;
     @Min(1)
     private int page;
-
-    public int pageSize() {
-        return pageSize;
-    }
-
-    public int page() {
-        return page;
-    }
 }

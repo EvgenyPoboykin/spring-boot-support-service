@@ -1,8 +1,9 @@
 package com.company.support.controllers;
 
 import com.company.support.exception.NoFoundException;
+import com.company.support.interfaces.IssuesServiceInterface;
 import com.company.support.model.*;
-import com.company.support.repository.postgres.RepositoryIssues;
+import com.company.support.repository.postgres.PostgresRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -17,9 +18,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1")
 public class IssuesServiceController implements IssuesServiceInterface {
-    RepositoryIssues repository;
+    PostgresRepository repository;
 
-    public IssuesServiceController(RepositoryIssues repository) {
+    public IssuesServiceController(PostgresRepository repository) {
         this.repository = repository;
     }
 
@@ -47,7 +48,7 @@ public class IssuesServiceController implements IssuesServiceInterface {
     @PatchMapping(path = "/issues/{issueId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public int updateIssue(@PathVariable UUID issueId, @Valid @RequestBody IssueUpdate issue) {
 
-        List<IssueStage> stages = repository.findStageByValue(issue.stage());
+        List<IssueStage> stages = repository.findStageByValue(issue.getStage());
 
         if((long) stages.size() == 0){
             throw new NoFoundException("Cannot found stage value!");

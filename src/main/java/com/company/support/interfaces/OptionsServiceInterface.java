@@ -1,4 +1,4 @@
-package com.company.support.controllers;
+package com.company.support.interfaces;
 
 import com.company.support.model.IssueStage;
 

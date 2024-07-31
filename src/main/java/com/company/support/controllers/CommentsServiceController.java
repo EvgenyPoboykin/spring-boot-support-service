@@ -1,7 +1,8 @@
 package com.company.support.controllers;
 
+import com.company.support.interfaces.CommentsServiceInterface;
 import com.company.support.model.*;
-import com.company.support.repository.postgres.RepositoryIssues;
+import com.company.support.repository.postgres.PostgresRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -15,9 +16,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1")
 public class CommentsServiceController implements CommentsServiceInterface {
-    RepositoryIssues repository;
+    PostgresRepository repository;
 
-    public CommentsServiceController(RepositoryIssues repository) {
+    public CommentsServiceController(PostgresRepository repository) {
         this.repository = repository;
     }
 

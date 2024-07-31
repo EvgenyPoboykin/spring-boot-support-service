@@ -1,4 +1,4 @@
-package com.company.support.repository.postgres;
+package com.company.support.interfaces;
 
 import com.company.support.model.*;
 
