@@ -1,0 +1,76 @@
+buildscript {
+	ext {
+		servicePackage = 'com.company.support'
+		servicePackageSlashes = servicePackage.replace(".", "/")
+	}
+}
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.2'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.company'
+version = 'service'
+
+ext {
+	defaultEncoding = "UTF-8"
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+springBoot {
+	mainClass = "${servicePackage}.SupportApplication"
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-database-postgresql'
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0"
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+allprojects {
+	repositories {
+		rootProject.buildscript.repositories.each {
+			repositories.add(it)
+		}
+	}
+}
+
+subprojects {
+	compileJava {
+		options.encoding = defaultEncoding
+		options.compilerArgs = ["-parameters", "-Xlint:unchecked"]
+	}
+
+	javadoc {
+		source = sourceSets.main.allJava
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
