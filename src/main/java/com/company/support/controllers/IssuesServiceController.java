@@ -1,9 +1,8 @@
 package com.company.support.controllers;
 
-import com.company.support.model.Issue;
-import com.company.support.model.IssueCreate;
-import com.company.support.model.IssueUpdate;
-import com.company.support.model.IssuesDto;
+import com.company.support.exception.NoFoundException;
+import com.company.support.mappers.StageRowMapper;
+import com.company.support.model.*;
 import com.company.support.repository.postgres.RepositoryIssues;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +33,25 @@ public class IssuesServiceController implements IssuesServiceInterface {
 
     @GetMapping(path = "/issues/{issueId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<Issue> getIssue(@PathVariable UUID issueId) {
-        return repository.getIssue(issueId);
+
+        Optional<Issue> issue = repository.getIssue(issueId);
+
+        if(issue.isEmpty()){
+            throw new NoFoundException("Cannot find issue with id = " + issueId);
+        }
+
+        return issue;
     }
 
     @PatchMapping(path = "/issues/{issueId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public int updateIssue(@PathVariable UUID issueId, @RequestBody IssueUpdate issue) {
+
+        List<IssueStage> stages = repository.findStageByValue(issue.stage());
+
+        if((long) stages.size() == 0){
+            throw new NoFoundException("Cannot found stage value!");
+        }
+
         return repository.updateIssue(issueId, issue);
     }
 

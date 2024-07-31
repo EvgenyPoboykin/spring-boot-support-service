@@ -1,9 +1,9 @@
 package com.company.support.exception;
 
-public class NoFoundStageValueException extends RuntimeException {
+public class NoFoundException extends RuntimeException {
     private String message;
 
-    public NoFoundStageValueException(String msg) {
+    public NoFoundException(String msg) {
         super(msg);
         this.message = msg;
     }

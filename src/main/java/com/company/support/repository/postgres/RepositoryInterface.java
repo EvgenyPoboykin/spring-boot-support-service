@@ -20,4 +20,6 @@ public interface RepositoryInterface {
     List<IssueComment> getComments(UUID issueId);
 
     int addComment(UUID issueId, IssueCommentCreate comment);
+
+    List<IssueStage> findStageByValue(String stage);
 }

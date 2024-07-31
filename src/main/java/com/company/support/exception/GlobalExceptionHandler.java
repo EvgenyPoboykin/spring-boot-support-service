@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(value = NoFoundStageValueException.class)
+    @ExceptionHandler(value = NoFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public @ResponseBody ErrorResponse handleNoFoundException(NoFoundStageValueException ex) {
+    public @ResponseBody ErrorResponse handleNoFoundException(NoFoundException ex) {
         return new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
 }

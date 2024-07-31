@@ -1,6 +1,6 @@
 package com.company.support.repository.postgres;
 
-import com.company.support.exception.NoFoundStageValueException;
+import com.company.support.exception.NoFoundException;
 import com.company.support.mappers.CommentRowMapper;
 import com.company.support.mappers.IssueRowMapper;
 import com.company.support.mappers.StageRowMapper;
@@ -41,13 +41,8 @@ public class RepositoryIssues implements RepositoryInterface {
     public Optional<Issue> getIssue(UUID issueId) {
 
         List<Issue> issues = jdbcTemplate.query(query.getIssue(), new IssueRowMapper(), issueId);
-        Optional<Issue> issue = issues.stream().findFirst();
 
-        if(issue.isEmpty()){
-            throw new NoFoundStageValueException("Cannot find issue with id = " + issueId);
-        }
-
-        return issue;
+        return issues.stream().findFirst();
     }
 
     @Override
@@ -74,12 +69,6 @@ public class RepositoryIssues implements RepositoryInterface {
     @Override
     public int updateIssue(UUID issueId, IssueUpdate issue) {
 
-        List<IssueStage> option = jdbcTemplate.query(query.getStageByValue(), new StageRowMapper(), issue.stage());
-
-        if((long) option.size() == 0){
-            throw new NoFoundStageValueException("Cannot find stage value! You used un!");
-        }
-
         return jdbcTemplate.update(
                 query.updateIssue(),
                 issue.stage(),
@@ -104,5 +93,10 @@ public class RepositoryIssues implements RepositoryInterface {
                 comment.clientId(),
                 comment.clientName()
         );
+    }
+
+    @Override
+    public List<IssueStage> findStageByValue(String stage){
+        return jdbcTemplate.query(query.getStageByValue(), new StageRowMapper(), stage);
     }
 }
