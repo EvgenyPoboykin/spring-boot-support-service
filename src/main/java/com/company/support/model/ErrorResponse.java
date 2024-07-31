@@ -1,4 +1,4 @@
-package com.company.support.exception;
+package com.company.support.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

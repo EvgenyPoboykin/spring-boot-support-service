@@ -1,5 +1,6 @@
 package com.company.support.exception;
 
+import com.company.support.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
