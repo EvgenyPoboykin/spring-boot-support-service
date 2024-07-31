@@ -1,14 +1,12 @@
 package com.company.support.repository.postgres;
 
-import com.company.support.exception.NoFoundException;
 import com.company.support.mappers.CommentRowMapper;
 import com.company.support.mappers.IssueRowMapper;
 import com.company.support.mappers.StageRowMapper;
 import com.company.support.model.*;
-import com.company.support.query.Query;
 
-import com.company.support.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,43 +17,47 @@ import java.util.UUID;
 
 @Repository
 public class RepositoryIssues implements RepositoryInterface {
-    Query query = new Query();
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Issue> getIssues(IssuesDto params) {
+        var sql = "SELECT * FROM issue ORDER BY created_at DESC LIMIT ? OFFSET ?";
 
-        Pagination page = new Pagination(params.pageSize(), params.page());
+        PageRequest pageable =  PageRequest.of(params.page() - 1, params.pageSize());
 
+        System.out.println(pageable.getPageSize() + " -- " + pageable.getOffset());
         return jdbcTemplate.query(
-                query.getIssues(),
+                sql,
                 new IssueRowMapper(),
-                page.limit(),
-                page.offset()
+                pageable.getPageSize(),
+                pageable.getOffset()
         );
     }
 
     @Override
     public Optional<Issue> getIssue(UUID issueId) {
+        var sql = "SELECT * FROM issue WHERE id = ?";
 
-        List<Issue> issues = jdbcTemplate.query(query.getIssue(), new IssueRowMapper(), issueId);
+        List<Issue> issues = jdbcTemplate.query(sql, new IssueRowMapper(), issueId);
 
         return issues.stream().findFirst();
     }
 
     @Override
     public List<IssueStage> getStages() {
+        var sql = "SELECT * FROM stage";
 
-        return jdbcTemplate.query(query.getStages(), new StageRowMapper());
+        return jdbcTemplate.query(sql, new StageRowMapper());
     }
 
     @Override
     public int createIssue(IssueCreate issue) {
+        var sql = "INSERT INTO issue(target_uri, image, description, created_at, updated_at, client_id, client_name) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         return jdbcTemplate.update(
-                query.createIssue(),
+                sql,
                 issue.targetUri(),
                 issue.image(),
                 issue.description(),
@@ -68,9 +70,10 @@ public class RepositoryIssues implements RepositoryInterface {
 
     @Override
     public int updateIssue(UUID issueId, IssueUpdate issue) {
+        var sql = "UPDATE issue SET stage = ? , updated_at = ? WHERE id = ?";
 
         return jdbcTemplate.update(
-                query.updateIssue(),
+                sql,
                 issue.stage(),
                 new Date(),
                 issueId
@@ -79,15 +82,17 @@ public class RepositoryIssues implements RepositoryInterface {
 
     @Override
     public List<IssueComment> getComments(UUID issueId) {
+        var sql = "SELECT * FROM comment ORDER BY created_at DESC WHERE issue_id = ?";
 
-        return jdbcTemplate.query(query.getComments(), new CommentRowMapper(), issueId);
+        return jdbcTemplate.query(sql, new CommentRowMapper(), issueId);
     }
 
     @Override
     public int addComment(UUID issueId, IssueCommentCreate comment) {
+        var sql = "INSERT INTO comment(issue_id, description, client_id, client_name) VALUES (?, ?, ?, ?)";
 
         return jdbcTemplate.update(
-                query.addComment(),
+                sql,
                 issueId,
                 comment.description(),
                 comment.clientId(),
@@ -96,7 +101,9 @@ public class RepositoryIssues implements RepositoryInterface {
     }
 
     @Override
-    public List<IssueStage> findStageByValue(String stage){
-        return jdbcTemplate.query(query.getStageByValue(), new StageRowMapper(), stage);
+    public List<IssueStage> findStageByValue(Stages stage){
+        var sql = "SELECT * FROM stage WHERE value = ?";
+
+        return jdbcTemplate.query(sql, new StageRowMapper(), stage);
     }
 }

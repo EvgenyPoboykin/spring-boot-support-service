@@ -1,15 +1,13 @@
 package com.company.support.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class IssueStage {
-    private String value;
+    private Stages value;
     private String label;
 
-    public IssueStage(String value, String label){
+    public IssueStage(Stages value, String label){
         this.label = label;
         this.value = value;
     }

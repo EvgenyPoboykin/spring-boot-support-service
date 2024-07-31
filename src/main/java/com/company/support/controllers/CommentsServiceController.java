@@ -1,11 +1,10 @@
 package com.company.support.controllers;
 
-import com.company.support.model.IssueComment;
-import com.company.support.model.IssueCommentCreate;
+import com.company.support.model.*;
 import com.company.support.repository.postgres.RepositoryIssues;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,11 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1")
 public class CommentsServiceController implements CommentsServiceInterface {
-    @Autowired
     RepositoryIssues repository;
+
+    public CommentsServiceController(RepositoryIssues repository) {
+        this.repository = repository;
+    }
 
     @Operation(summary = "Получить все комментарии по заявке")
     @GetMapping(path = "/comments/{issueId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,7 +29,7 @@ public class CommentsServiceController implements CommentsServiceInterface {
 
     @Operation(summary = "Добавить комментарий к заявке")
     @PutMapping(path = "/comments/{issueId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public int addComment(@PathVariable UUID issueId, @RequestBody IssueCommentCreate comment) {
+    public int addComment(@PathVariable UUID issueId, @Valid @RequestBody IssueCommentCreate comment) {
         return repository.addComment(issueId, comment);
     }
 }

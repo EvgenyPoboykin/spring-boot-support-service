@@ -1,9 +1,6 @@
 package com.company.support.controllers;
 
-import com.company.support.model.Issue;
-import com.company.support.model.IssueCreate;
-import com.company.support.model.IssueUpdate;
-import com.company.support.model.IssuesDto;
+import com.company.support.model.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 

@@ -1,17 +1,21 @@
 package com.company.support.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
 
-@Setter
-@Getter
+import java.util.UUID;
+
+@Data
 public class IssueCommentCreate {
 
+    @NonNull
     private String description;
-    private String clientId;
+    @NonNull
+    private UUID clientId;
+    @NonNull
     private String clientName;
 
-    public IssueCommentCreate(String description, String clientId, String clientName) {
+    public IssueCommentCreate(String description, UUID clientId, String clientName) {
         this.description = description;
         this.clientId = clientId;
         this.clientName = clientName;
@@ -21,7 +25,7 @@ public class IssueCommentCreate {
         return description;
     }
 
-    public String clientId() {
+    public UUID clientId() {
         return clientId;
     }
 

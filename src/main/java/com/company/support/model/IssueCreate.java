@@ -1,19 +1,26 @@
 package com.company.support.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
+import org.springframework.lang.Nullable;
 
-@Setter
-@Getter
+import java.util.UUID;
+
+@Data
 public class IssueCreate {
+    @NonNull
     private String targetUri;
+    @Nullable
     private String image;
+    @NonNull
     private String description;
-    private String clientId;
+    @NonNull
+    private UUID clientId;
+    @Nullable
     private String clientName;
 
 
-    public IssueCreate(String targetUri, String image, String description, String clientId, String clientName) {
+    public IssueCreate(String targetUri, String image, String description, UUID clientId, String clientName) {
         this.targetUri = targetUri;
         this.image = image;
         this.description = description;
@@ -33,7 +40,7 @@ public class IssueCreate {
         return description;
     }
 
-    public String clientId() {
+    public UUID clientId() {
         return clientId;
     }
 

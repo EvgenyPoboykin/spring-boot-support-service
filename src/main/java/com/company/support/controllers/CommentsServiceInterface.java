@@ -1,8 +1,6 @@
 package com.company.support.controllers;
 
 import com.company.support.model.*;
-import com.company.support.model.IssueComment;
-import com.company.support.model.IssueCommentCreate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 

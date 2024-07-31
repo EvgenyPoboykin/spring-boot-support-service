@@ -1,18 +1,18 @@
 package com.company.support.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NonNull;
 
-@Setter
-@Getter
+@Data
 public class IssueUpdate {
-    private String stage;
+    @NonNull
+    private Stages stage;
 
-    public IssueUpdate(String stage, String updateAt) {
+    public IssueUpdate(Stages stage, String updateAt) {
         this.stage = stage;
     }
 
-    public String stage() {
+    public Stages stage() {
         return stage;
     }
 }

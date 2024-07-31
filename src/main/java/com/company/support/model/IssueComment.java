@@ -1,12 +1,10 @@
 package com.company.support.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.UUID;
 
-@Setter
-@Getter
+@Data
 public class IssueComment {
 
     private UUID id;

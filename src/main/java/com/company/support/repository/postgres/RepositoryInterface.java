@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface RepositoryInterface {
-    List<Issue> getIssues(IssuesDto params);
+    List<Issue> getIssues(IssuesDto pageable);
 
     Optional<Issue> getIssue(UUID issueId);
 
@@ -21,5 +21,5 @@ public interface RepositoryInterface {
 
     int addComment(UUID issueId, IssueCommentCreate comment);
 
-    List<IssueStage> findStageByValue(String stage);
+    List<IssueStage> findStageByValue(Stages stage);
 }

@@ -14,7 +14,6 @@ public class ErrorResponse {
 
     public ErrorResponse(String payload)
     {
-        super();
         this.payload = payload;
     }
 }
