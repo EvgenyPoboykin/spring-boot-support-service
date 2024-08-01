@@ -1,18 +1,18 @@
 package com.company.support.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
 
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 public class IssueCommentCreate {
-    @NonNull
+    @NotBlank(message = "description is required field")
     private String description;
-    @NonNull
+    @NotBlank(message = "clientId is required field")
     private UUID clientId;
-    @NonNull
+    @NotBlank(message = "clientName is required field")
     private String clientName;
 }

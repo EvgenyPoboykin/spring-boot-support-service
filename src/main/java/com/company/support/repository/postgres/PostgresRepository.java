@@ -40,7 +40,6 @@ public class PostgresRepository implements RepositoryInterface {
     @Override
     public Optional<Issue> getIssue(UUID issueId) {
         var sql = "SELECT * FROM issue WHERE id = ?";
-
         List<Issue> issues = jdbcTemplate.query(sql, new IssueRowMapper(), issueId);
 
         return issues.stream().findFirst();

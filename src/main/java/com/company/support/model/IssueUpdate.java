@@ -1,12 +1,12 @@
 package com.company.support.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
 public class IssueUpdate {
-    @NonNull
+    @NotBlank(message = "stage is required field")
     private Stages stage;
 }
