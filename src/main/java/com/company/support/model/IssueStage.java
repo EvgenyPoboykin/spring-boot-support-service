@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class IssueStage {
-    private Stages value;
+    private  StagesEnum value;
     private String label;
 }

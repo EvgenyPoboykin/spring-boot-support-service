@@ -1,5 +1,6 @@
 package com.company.support.controllers;
 
+import com.company.support.constants.Stages;
 import com.company.support.interfaces.OptionsServiceInterface;
 import com.company.support.model.IssueStage;
 import com.company.support.repository.postgres.PostgresRepository;
@@ -16,16 +17,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class OptionsServiceController implements OptionsServiceInterface {
-    PostgresRepository repository;
-
-    public OptionsServiceController(PostgresRepository repository) {
-        this.repository = repository;
-    }
 
     @Operation(summary = "Получить список этапов обработки")
     @GetMapping(path = "/options/stages", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<IssueStage> getStages() {
-        return repository.getStages();
+        return new Stages().getList();
     }
 
 }

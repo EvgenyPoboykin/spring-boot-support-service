@@ -28,7 +28,6 @@ public class PostgresRepository implements RepositoryInterface {
 
         PageRequest pageable =  PageRequest.of(params.getPage() - 1, params.getPageSize());
 
-        System.out.println(pageable.getPageSize() + " -- " + pageable.getOffset());
         return jdbcTemplate.query(
                 sql,
                 new IssueRowMapper(),
@@ -43,13 +42,6 @@ public class PostgresRepository implements RepositoryInterface {
         List<Issue> issues = jdbcTemplate.query(sql, new IssueRowMapper(), issueId);
 
         return issues.stream().findFirst();
-    }
-
-    @Override
-    public List<IssueStage> getStages() {
-        var sql = "SELECT * FROM stage";
-
-        return jdbcTemplate.query(sql, new StageRowMapper());
     }
 
     @Override
@@ -98,12 +90,5 @@ public class PostgresRepository implements RepositoryInterface {
                 comment.getClientId(),
                 comment.getClientName()
         );
-    }
-
-    @Override
-    public List<IssueStage> findStageByValue(Stages stage){
-        var sql = "SELECT * FROM stage WHERE value = ?";
-
-        return jdbcTemplate.query(sql, new StageRowMapper(), stage);
     }
 }

@@ -11,8 +11,6 @@ public interface RepositoryInterface {
 
     Optional<Issue> getIssue(UUID issueId);
 
-    List<IssueStage> getStages();
-
     int createIssue(IssueCreate issue);
 
     int updateIssue(UUID issueId, IssueUpdate issue);
@@ -21,5 +19,4 @@ public interface RepositoryInterface {
 
     int addComment(UUID issueId, IssueCommentCreate comment);
 
-    List<IssueStage> findStageByValue(Stages stage);
 }

@@ -8,5 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class IssueUpdate {
     @NotBlank(message = "stage is required field")
-    private Stages stage;
+    private StagesEnum stage;
 }

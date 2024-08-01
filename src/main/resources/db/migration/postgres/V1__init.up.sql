@@ -13,11 +13,6 @@ CREATE TABLE IF NOT EXISTS public.issue (
     "updated_at" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS public.stage (
-    "value" varchar NOT NULL,
-    "label" varchar NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS public.comment (
     "id" uuid PRIMARY KEY NOT NULL DEFAULT (uuid_generate_v4()),
     "issue_id" uuid NOT NULL,
