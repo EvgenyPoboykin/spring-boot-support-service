@@ -1,0 +1,28 @@
+package com.company.support.repository;
+
+import com.company.support.dto.model.IssueEntityDto;
+
+import com.company.support.dto.model.StagesEnum;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+@Repository
+public interface IssueRepositoryInterface extends CrudRepository<IssueEntityDto, UUID> {
+
+  @Query(value = "select u from Issue u where u.clientId = ?1 order by u.createdAt asc")
+  List<IssueEntityDto> findByClientId(@Param("clientId") UUID clientId);
+
+  @Modifying(clearAutomatically = true)
+  @Query(value = "update Issue u set u.stage = :stage , u.updatedAt = :updatedAt where u.id = :id")
+  @Transactional
+  void updateIssue(@Param("stage") StagesEnum stage, @Param("updatedAt") Date updateAt, @Param("id") UUID id);
+
+}

@@ -1,6 +1,6 @@
 
 POSTGRES_PORT=5858
-POSTGRES_DATA=dblpsupport
+POSTGRES_DATA=dbsupport
 POSTGRES_VERSION=postgres
 
 db.container:
@@ -24,7 +24,7 @@ container.stop:
 project.build:
 	gradle build
 
-project.dev:
+project.dev: project.build
 	./gradlew bootRun
 
 project.api:

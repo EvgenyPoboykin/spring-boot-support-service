@@ -1,1 +1,1 @@
-INSERT INTO public.issue (target_uri, image, description, client_id, client_name, stage, created_at, updated_at) VALUES ('/', 'base64 string', 'test', '1', 'Evgeny Poboykin', 'NEW', '2024-04-25T12:25', '2024-04-25T12:25')
+INSERT INTO public.issue (target_uri, image, description, client_id, client_name, stage, created_at, updated_at) VALUES ('/', 'base64 string', 'test', '71aa2970-4f55-4ca2-977e-9606d0c53e9a', 'Evgeny Poboykin', 'NEW', '2024-08-04 09:19:30.556+00', '2024-08-04 09:19:30.556+00')
