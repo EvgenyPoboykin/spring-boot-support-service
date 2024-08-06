@@ -2,12 +2,14 @@ package com.company.support.dto.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
 public class CommentJsonDto {
 
   @NotNull
@@ -22,9 +24,6 @@ public class CommentJsonDto {
   @NotNull
   @JsonProperty
   private Date createdAt;
-  @NotNull
-  @JsonProperty
-  private UUID clientId;
   @NotNull
   @JsonProperty
   private String clientName;

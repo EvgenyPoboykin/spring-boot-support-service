@@ -1,7 +1,7 @@
 package com.company.support.dto.mappers;
 
-import com.company.support.dto.request.CreateCommentParamsMergeDto;
-import com.company.support.dto.model.CommentEntityDto;
+import com.company.support.dto.request.CreateCommentParamsMerge;
+import com.company.support.dto.model.CommentEntity;
 import com.company.support.dto.model.CommentJsonDto;
 
 import java.util.List;
@@ -9,12 +9,12 @@ import java.util.stream.Stream;
 
 public interface CommentMapperInterface {
 
-  CommentEntityDto mapCreateCommentJsonToEntity(CreateCommentParamsMergeDto args);
+  CommentEntity mapCreateCommentJsonToEntity(CreateCommentParamsMerge args);
 
-  CommentEntityDto mapJsonToEntity(CommentJsonDto args);
+  CommentEntity mapJsonToEntity(CommentJsonDto args);
 
-  CommentJsonDto mapEntityToJson(CommentEntityDto args);
+  CommentJsonDto mapEntityToJson(CommentEntity args);
 
-  List<CommentJsonDto> mapStreamToList(Stream<CommentEntityDto> comments);
+  List<CommentJsonDto> mapStreamToList(Stream<CommentEntity> comments);
 
 }

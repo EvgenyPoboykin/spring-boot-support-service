@@ -5,7 +5,7 @@ import com.company.support.dto.model.IssueJsonDto;
 import com.company.support.dto.request.CreateIssueParamsDto;
 import com.company.support.dto.request.ListParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsDto;
-import com.company.support.dto.response.SuccessUpdateDto;
+import com.company.support.dto.response.SuccessDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +17,9 @@ public interface IssuesServiceInterface {
 
   Optional<IssueJsonDto> getIssue(UUID issueId);
 
-  SuccessUpdateDto updateIssue(UUID issueId, UpdateIssueParamsDto issue);
+  SuccessDto updateIssue(UUID issueId, UpdateIssueParamsDto issue);
+
+  SuccessDto deleteIssue(UUID issueId);
 
   IssueJsonDto createIssue(CreateIssueParamsDto issue);
 

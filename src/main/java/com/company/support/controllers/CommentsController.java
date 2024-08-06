@@ -22,7 +22,7 @@ public class CommentsController implements CommentsControllerInterface {
 
   @Override
   @Operation(summary = "Получить все комментарии по заявке")
-  public List<CommentJsonDto> getComments(@PathVariable UUID issueId) {
+  public List<CommentJsonDto> getComments(@PathVariable UUID issueId, @RequestParam(name = "pageSize", defaultValue = "25") int pageSize, @RequestParam(name = "page", defaultValue = "1") int page) {
     return commentsService.getComments(issueId);
   }
 

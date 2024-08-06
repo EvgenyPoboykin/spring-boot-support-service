@@ -1,6 +1,6 @@
 package com.company.support.dto.mappers;
 
-import com.company.support.dto.model.IssueEntityDto;
+import com.company.support.dto.model.IssueEntity;
 import com.company.support.dto.model.IssueJsonDto;
 import com.company.support.dto.request.CreateIssueParamsDto;
 
@@ -9,12 +9,12 @@ import java.util.stream.Stream;
 
 public interface IssueMapperInterface {
 
-  IssueEntityDto mapJsonToEntity(IssueJsonDto args);
+  IssueEntity mapJsonToEntity(IssueJsonDto args);
 
-  IssueJsonDto mapEntityToJson(IssueEntityDto args);
+  IssueJsonDto mapEntityToJson(IssueEntity args);
 
-  List<IssueJsonDto> mapStreamToList(Stream<IssueEntityDto> issues);
+  List<IssueJsonDto> mapStreamToList(Stream<IssueEntity> issues);
 
-  IssueEntityDto mapCreateIssueJsonToEntity(CreateIssueParamsDto args);
+  IssueEntity mapCreateIssueJsonToEntity(CreateIssueParamsDto args);
 
 }

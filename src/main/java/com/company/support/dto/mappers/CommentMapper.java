@@ -1,7 +1,7 @@
 package com.company.support.dto.mappers;
 
-import com.company.support.dto.request.CreateCommentParamsMergeDto;
-import com.company.support.dto.model.CommentEntityDto;
+import com.company.support.dto.request.CreateCommentParamsMerge;
+import com.company.support.dto.model.CommentEntity;
 import com.company.support.dto.model.CommentJsonDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -19,19 +19,25 @@ public final class CommentMapper implements CommentMapperInterface {
     this.modelMapper = modelMapper;
   }
 
-  public CommentEntityDto mapCreateCommentJsonToEntity(CreateCommentParamsMergeDto args) {
-    return modelMapper.map(args, CommentEntityDto.class);
+  public CommentEntity mapCreateCommentJsonToEntity(CreateCommentParamsMerge args) {
+    return modelMapper.map(args, CommentEntity.class);
   }
 
-  public CommentEntityDto mapJsonToEntity(CommentJsonDto args) {
-    return modelMapper.map(args, CommentEntityDto.class);
+  public CommentEntity mapJsonToEntity(CommentJsonDto args) {
+    return modelMapper.map(args, CommentEntity.class);
   }
 
-  public CommentJsonDto mapEntityToJson(CommentEntityDto args) {
-    return modelMapper.map(args, CommentJsonDto.class);
+  public CommentJsonDto mapEntityToJson(CommentEntity args) {
+    return new CommentJsonDto(
+            args.getId(),
+            args.getIssueId(),
+            args.getDescription(),
+            args.getCreatedAt(),
+            args.getClientName()
+    );
   }
 
-  public List<CommentJsonDto> mapStreamToList(Stream<CommentEntityDto> comments) {
+  public List<CommentJsonDto> mapStreamToList(Stream<CommentEntity> comments) {
     return comments.map(this::mapEntityToJson).collect(Collectors.toList());
   }
 

@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface CommentsControllerInterface {
 
   @GetMapping(path = "/comments/{issueId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  List<CommentJsonDto> getComments(@PathVariable UUID issueId);
+  List<CommentJsonDto> getComments(@PathVariable UUID issueId, @RequestParam(name = "pageSize", defaultValue = "25") int pageSize, @RequestParam(name = "page", defaultValue = "1") int page);
 
   @PutMapping(path = "/comments/{issueId}", produces = MediaType.APPLICATION_JSON_VALUE)
   CommentJsonDto addComment(@PathVariable UUID issueId, @Valid @RequestBody CreateCommentParamsDto comment);

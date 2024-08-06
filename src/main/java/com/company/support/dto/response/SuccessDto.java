@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SuccessUpdateDto {
+public class SuccessDto {
   @JsonProperty
   private Boolean done;
 }

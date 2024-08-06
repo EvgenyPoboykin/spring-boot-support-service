@@ -32,9 +32,6 @@ public class IssueJsonDto {
   private StagesEnum stage;
   @NotNull
   @JsonProperty
-  private UUID clientId;
-  @NotNull
-  @JsonProperty
   private String clientName;
   @NotNull
   @JsonProperty

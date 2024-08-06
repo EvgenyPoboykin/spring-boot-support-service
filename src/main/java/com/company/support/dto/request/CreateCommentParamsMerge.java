@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class CreateCommentParamsMergeDto {
+public class CreateCommentParamsMerge {
 
   @JsonProperty
   private String description;

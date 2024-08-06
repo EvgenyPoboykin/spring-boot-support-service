@@ -3,6 +3,7 @@ package com.company.support.dto.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
@@ -10,9 +11,10 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Comment")
 @Table(name = "comment")
-public class CommentEntityDto {
+public class CommentEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

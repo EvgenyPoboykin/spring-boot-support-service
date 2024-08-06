@@ -1,6 +1,6 @@
 package com.company.support.dto.mappers;
 
-import com.company.support.dto.model.IssueEntityDto;
+import com.company.support.dto.model.IssueEntity;
 import com.company.support.dto.model.IssueJsonDto;
 
 import com.company.support.dto.request.CreateIssueParamsDto;
@@ -21,24 +21,32 @@ public final class IssueMapper implements IssueMapperInterface {
     this.modelMapper = modelMapper;
   }
 
-  public IssueEntityDto mapJsonToEntity(IssueJsonDto args) {
+  public IssueEntity mapJsonToEntity(IssueJsonDto args) {
 
-    return modelMapper.map(args, IssueEntityDto.class);
+    return modelMapper.map(args, IssueEntity.class);
   }
 
-  public IssueJsonDto mapEntityToJson(IssueEntityDto args) {
-
-    return modelMapper.map(args, IssueJsonDto.class);
+  public IssueJsonDto mapEntityToJson(IssueEntity args) {
+      return new IssueJsonDto(
+              args.getId(),
+              args.getTargetUri(),
+              args.getImage(),
+              args.getDescription(),
+              args.getStage(),
+              args.getClientName(),
+              args.getCreatedAt(),
+              args.getUpdatedAt()
+      );
   }
 
-  public List<IssueJsonDto> mapStreamToList(Stream<IssueEntityDto> issues) {
+  public List<IssueJsonDto> mapStreamToList(Stream<IssueEntity> issues) {
     return issues
         .map(this::mapEntityToJson)
         .collect(Collectors.toList());
   }
 
-  public IssueEntityDto mapCreateIssueJsonToEntity(CreateIssueParamsDto args) {
-    return modelMapper.map(args, IssueEntityDto.class);
+  public IssueEntity mapCreateIssueJsonToEntity(CreateIssueParamsDto args) {
+    return modelMapper.map(args, IssueEntity.class);
   }
 
 }

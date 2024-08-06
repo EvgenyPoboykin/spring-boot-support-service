@@ -2,13 +2,13 @@ package com.company.support.services.issues;
 
 import com.company.support.dto.mappers.IssueMapperInterface;
 import com.company.support.dto.merge.IssueMergeParamsInterface;
-import com.company.support.dto.model.IssueEntityDto;
+import com.company.support.dto.model.IssueEntity;
 import com.company.support.dto.model.IssueJsonDto;
 import com.company.support.dto.request.CreateIssueParamsDto;
 import com.company.support.dto.request.ListParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsMergeDto;
-import com.company.support.dto.response.SuccessUpdateDto;
+import com.company.support.dto.response.SuccessDto;
 import com.company.support.repository.IssueRepositoryInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,14 +30,14 @@ public class IssuesService implements IssuesServiceInterface {
 
     if (id.toString().isEmpty()) {
 
-      List<IssueEntityDto> issues = repository.findByClientId(id);
+      List<IssueEntity> issues = repository.findByClientId(id);
 
       return mapper.mapStreamToList(issues.stream());
 
     } else {
 
-      Iterable<IssueEntityDto> issuesAdmin = repository.findAll();
-      List<IssueEntityDto> issues = new ArrayList<>();
+      Iterable<IssueEntity> issuesAdmin = repository.findAll();
+      List<IssueEntity> issues = new ArrayList<>();
 
       issuesAdmin.forEach(issues::add);
 
@@ -53,21 +53,31 @@ public class IssuesService implements IssuesServiceInterface {
 
   }
 
-  public SuccessUpdateDto updateIssue(UUID issueId, UpdateIssueParamsDto body) {
+  public SuccessDto updateIssue(UUID issueId, UpdateIssueParamsDto body) {
 
     UpdateIssueParamsMergeDto params = merge.mergeUpdateIssue(issueId, body);
 
     repository.updateIssue(params.getStage(), params.getUpdatedAt(), params.getIssueId());
 
-    return new SuccessUpdateDto(true);
+    return new SuccessDto(true);
+
+  }
+
+  public SuccessDto deleteIssue(UUID issueId) {
+    // убрать после перехода на jwt
+    var clientId = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+
+    repository.deleteIssue(issueId, clientId);
+
+    return new SuccessDto(true);
 
   }
 
   public IssueJsonDto createIssue(CreateIssueParamsDto body) {
 
-    IssueEntityDto issueSave = mapper.mapCreateIssueJsonToEntity(body);
+    IssueEntity issueSave = mapper.mapCreateIssueJsonToEntity(body);
 
-    IssueEntityDto issue = repository.save(issueSave);
+    IssueEntity issue = repository.save(issueSave);
 
     return mapper.mapEntityToJson(issue);
 
