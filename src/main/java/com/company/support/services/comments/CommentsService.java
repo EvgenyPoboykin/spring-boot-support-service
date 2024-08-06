@@ -6,9 +6,10 @@ import com.company.support.dto.request.CreateCommentParamsDto;
 import com.company.support.dto.request.CreateCommentParamsMerge;
 import com.company.support.dto.model.CommentEntity;
 import com.company.support.dto.model.CommentJsonDto;
-import com.company.support.dto.validations.CommentValidationInterface;
+import com.company.support.exception.NoFoundException;
 import com.company.support.repository.CommentRepositoryInterface;
 
+import com.company.support.repository.IssueRepositoryInterface;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -20,11 +21,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CommentsService implements CommentsServiceInterface {
   public final CommentRepositoryInterface repository;
+  public final IssueRepositoryInterface issueRepository;
   public final CommentMapperInterface mapper;
   public final CommentMergeInterface mergeParams;
-  public final CommentValidationInterface validation;
 
-  public List<CommentJsonDto> getComments(UUID issueId) {
+  public List<CommentJsonDto> getComments(UUID issueId, int pageSize, int page) {
+
+    if(!issueRepository.existsById(issueId)){
+      throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
+    }
 
     List<CommentEntity> comments = repository.findByIssueId(issueId);
 
@@ -34,7 +39,9 @@ public class CommentsService implements CommentsServiceInterface {
 
   public CommentJsonDto addComment(UUID issueId, CreateCommentParamsDto body) {
 
-    validation.validationAddCommentParams(issueId, body);
+    if(!issueRepository.existsById(issueId)){
+      throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
+    }
 
     CreateCommentParamsMerge property = mergeParams.mergeAddCommentParams(issueId, body);
 

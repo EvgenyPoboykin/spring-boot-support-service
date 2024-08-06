@@ -3,13 +3,14 @@ package com.company.support.controllers;
 import com.company.support.api.IssuesControllerInterface;
 import com.company.support.dto.model.IssueJsonDto;
 import com.company.support.dto.request.CreateIssueParamsDto;
-import com.company.support.dto.request.ListParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsDto;
 import com.company.support.dto.response.SuccessDto;
 import com.company.support.services.issues.IssuesServiceInterface;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,11 +29,9 @@ public class IssuesController implements IssuesControllerInterface {
   public final IssuesServiceInterface issuesService;
 
   @Operation(summary = "Получить список заявок")
-  public List<IssueJsonDto> getIssues(@RequestParam(name = "pageSize", defaultValue = "25") int pageSize, @RequestParam(name = "page", defaultValue = "1") int page) {
+  public List<IssueJsonDto> getIssues(@RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
 
-    ListParamsDto params = new ListParamsDto(pageSize, page);
-
-    return issuesService.getIssues(params);
+    return issuesService.getIssues(pageSize, page);
 
   }
 

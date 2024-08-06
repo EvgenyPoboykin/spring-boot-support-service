@@ -23,11 +23,11 @@ public interface IssueRepositoryInterface extends CrudRepository<IssueEntity, UU
   @Modifying(clearAutomatically = true)
   @Query(value = "update Issue u set u.stage = :stage , u.updatedAt = :updatedAt where u.id = :id")
   @Transactional
-  void updateIssue(@Param("stage") StagesEnum stage, @Param("updatedAt") Date updateAt, @Param("id") UUID id);
+  Long updateIssue(@Param("stage") StagesEnum stage, @Param("updatedAt") Date updateAt, @Param("id") UUID id);
 
   @Modifying(clearAutomatically = true)
   @Query(value = "delete Issue u where u.id = :id and u.clientId = :clientId")
   @Transactional
-  void deleteIssue(@Param("id") UUID id, @Param("clientId") UUID clientId);
+  Long deleteIssue(@Param("id") UUID id, @Param("clientId") UUID clientId);
 
 }

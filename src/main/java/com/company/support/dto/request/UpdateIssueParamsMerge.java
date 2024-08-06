@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-public class UpdateIssueParamsMergeDto {
+public class UpdateIssueParamsMerge {
 
   @NotNull
   @NotBlank(message = "stage is required field")

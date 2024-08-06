@@ -1,7 +1,7 @@
 package com.company.support.dto.merge;
 
 import com.company.support.dto.request.UpdateIssueParamsDto;
-import com.company.support.dto.request.UpdateIssueParamsMergeDto;
+import com.company.support.dto.request.UpdateIssueParamsMerge;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -10,9 +10,9 @@ import java.util.UUID;
 @Component
 public class IssueMergeParams implements IssueMergeParamsInterface {
 
-  public UpdateIssueParamsMergeDto mergeUpdateIssue(UUID issueId, UpdateIssueParamsDto params) {
+  public UpdateIssueParamsMerge mergeUpdateIssue(UUID issueId, UpdateIssueParamsDto params) {
 
-    return new UpdateIssueParamsMergeDto(
+    return new UpdateIssueParamsMerge(
         params.getStage(),
         issueId,
         new Date());
