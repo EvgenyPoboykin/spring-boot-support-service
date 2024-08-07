@@ -30,7 +30,9 @@ public class IssuesController implements IssuesControllerInterface {
   public final IssuesServiceInterface issuesService;
 
   @Operation(summary = "Получить список заявок")
-  public ListJsonDto<List<IssueJsonDto>> getIssues(@RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
+  public ListJsonDto<List<IssueJsonDto>> getIssues(
+      @RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize,
+      @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
 
     return issuesService.getIssues(pageSize, page);
 

@@ -27,16 +27,15 @@ public final class IssueMapper implements IssueMapperInterface {
   }
 
   public IssueJsonDto mapEntityToJson(IssueEntity args) {
-      return new IssueJsonDto(
-              args.getId(),
-              args.getTargetUri(),
-              args.getImage(),
-              args.getDescription(),
-              args.getStage(),
-              args.getClientName(),
-              args.getCreatedAt(),
-              args.getUpdatedAt()
-      );
+    return new IssueJsonDto(
+        args.getId(),
+        args.getTargetUri(),
+        args.getImage(),
+        args.getDescription(),
+        args.getStage(),
+        args.getClientName(),
+        args.getCreatedAt(),
+        args.getUpdatedAt());
   }
 
   public List<IssueJsonDto> mapStreamToList(Stream<IssueEntity> issues) {

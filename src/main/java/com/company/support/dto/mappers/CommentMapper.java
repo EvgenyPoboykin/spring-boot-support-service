@@ -29,12 +29,11 @@ public final class CommentMapper implements CommentMapperInterface {
 
   public CommentJsonDto mapEntityToJson(CommentEntity args) {
     return new CommentJsonDto(
-            args.getId(),
-            args.getIssueId(),
-            args.getDescription(),
-            args.getCreatedAt(),
-            args.getClientName()
-    );
+        args.getId(),
+        args.getIssueId(),
+        args.getDescription(),
+        args.getCreatedAt(),
+        args.getClientName());
   }
 
   public List<CommentJsonDto> mapStreamToList(Stream<CommentEntity> comments) {

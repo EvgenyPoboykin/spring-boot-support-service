@@ -4,7 +4,7 @@ import com.company.support.dto.request.UpdateIssueParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsMerge;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Component
@@ -15,7 +15,7 @@ public class IssueMergeParams implements IssueMergeParamsInterface {
     return new UpdateIssueParamsMerge(
         params.getStage(),
         issueId,
-        new Date());
+        LocalDate.now());
   }
 
 }

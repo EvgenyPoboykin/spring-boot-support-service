@@ -16,7 +16,7 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  private <T extends MethodArgumentNotValidException> String mapValidationExceptionToString(T ex){
+  private <T extends MethodArgumentNotValidException> String mapValidationExceptionToString(T ex) {
     List<String> err = new ArrayList<>();
 
     ex.getAllErrors().forEach(e -> {

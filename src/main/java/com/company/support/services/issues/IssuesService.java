@@ -1,5 +1,6 @@
 package com.company.support.services.issues;
 
+import com.company.support.dto.generators.GeneratorInterface;
 import com.company.support.dto.mappers.IssueMapperInterface;
 import com.company.support.dto.merge.IssueMergeParamsInterface;
 import com.company.support.dto.model.IssueEntity;
@@ -27,14 +28,15 @@ public class IssuesService implements IssuesServiceInterface {
   public final IssueRepositoryInterface repository;
   public final IssueMapperInterface mapper;
   public final IssueMergeParamsInterface merge;
+  public final GeneratorInterface generator;
 
-  private List<IssueJsonDto> getIssuesByClient(UUID id, int limit, Long offset){
+  private List<IssueJsonDto> getIssuesByClient(UUID id, int limit, Long offset) {
     List<IssueEntity> issues = repository.findByClientId(id, limit, offset);
 
     return mapper.mapStreamToList(issues.stream());
   }
 
-  private List<IssueJsonDto> getIssuesByAdmin(int limit, Long offset){
+  private List<IssueJsonDto> getIssuesByAdmin(int limit, Long offset) {
     List<IssueEntity> issues = new ArrayList<>();
 
     Iterable<IssueEntity> issuesAdmin = repository.findByAdmin(limit, offset);
@@ -55,37 +57,42 @@ public class IssuesService implements IssuesServiceInterface {
 
       long totalCount = repository.findByClientIdCount(clientId);
 
+      if (totalCount == 0) {
+        return generator.emptyResponseList(pageable.getPageSize(), pageable.getPageNumber(), PAGE_ONE);
+      }
+
       List<IssueJsonDto> records = getIssuesByClient(clientId, pageable.getPageSize(), pageable.getOffset());
 
       return new ListJsonDto<List<IssueJsonDto>>(
           records,
           pageable.getPageSize(),
           pageable.getPageNumber() + PAGE_ONE,
-          (int)(totalCount / pageable.getPageSize()) + PAGE_ONE,
-          (int)totalCount
-      );
+          (int) (totalCount / pageable.getPageSize()) + PAGE_ONE,
+          (int) totalCount);
 
     } else {
 
       long totalCount = repository.findByAdminCount();
 
+      if (totalCount == 0) {
+        return generator.emptyResponseList(pageable.getPageSize(), pageable.getPageNumber(), PAGE_ONE);
+      }
+
       List<IssueJsonDto> records = getIssuesByAdmin(pageable.getPageSize(), pageable.getOffset());
 
       return new ListJsonDto<List<IssueJsonDto>>(
-              records,
-              pageable.getPageSize(),
-              pageable.getPageNumber() + PAGE_ONE,
-              (int)(totalCount / pageable.getPageSize()) + PAGE_ONE,
-              (int)totalCount
-      );
-
+          records,
+          pageable.getPageSize(),
+          pageable.getPageNumber() + PAGE_ONE,
+          (int) (totalCount / pageable.getPageSize()) + PAGE_ONE,
+          (int) totalCount);
     }
 
   }
 
   public Optional<IssueJsonDto> getIssue(UUID issueId) {
 
-    if(!repository.existsById(issueId)){
+    if (!repository.existsById(issueId)) {
       throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
     }
 
@@ -95,7 +102,7 @@ public class IssuesService implements IssuesServiceInterface {
 
   public SuccessDto updateIssue(UUID issueId, UpdateIssueParamsDto body) {
 
-    if(!repository.existsById(issueId)){
+    if (!repository.existsById(issueId)) {
       throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
     }
 
@@ -109,7 +116,7 @@ public class IssuesService implements IssuesServiceInterface {
 
   public SuccessDto deleteIssue(UUID issueId) {
 
-    if(!repository.existsById(issueId)){
+    if (!repository.existsById(issueId)) {
       throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
     }
 

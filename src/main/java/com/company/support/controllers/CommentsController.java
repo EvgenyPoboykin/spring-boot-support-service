@@ -26,7 +26,9 @@ public class CommentsController implements CommentsControllerInterface {
 
   @Override
   @Operation(summary = "Получить все комментарии по заявке")
-  public ListJsonDto<List<CommentJsonDto>> getComments(@PathVariable UUID issueId, @RequestParam(name = "pageSize", defaultValue = "10") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
+  public ListJsonDto<List<CommentJsonDto>> getComments(@PathVariable UUID issueId,
+      @RequestParam(name = "pageSize", defaultValue = "10") @Min(5) @Max(100) int pageSize,
+      @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
     return commentsService.getComments(issueId, pageSize, page);
   }
 

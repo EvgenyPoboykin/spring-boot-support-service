@@ -1,31 +1,30 @@
 package com.company.support.dto.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @AllArgsConstructor
 public class CommentJsonDto {
 
   @NotNull
-  @JsonProperty
   private UUID id;
   @NotNull
-  @JsonProperty
   private UUID issueId;
   @NotNull
-  @JsonProperty
   private String description;
   @NotNull
-  @JsonProperty
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @CreationTimestamp
   private Date createdAt;
   @NotNull
-  @JsonProperty
   private String clientName;
 
 }

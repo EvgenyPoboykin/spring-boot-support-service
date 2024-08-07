@@ -24,4 +24,3 @@ public class CreateIssueParamsDto {
   private String clientName;
 
 }
-

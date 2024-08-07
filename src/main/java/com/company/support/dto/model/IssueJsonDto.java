@@ -1,9 +1,9 @@
 package com.company.support.dto.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,28 +16,22 @@ import lombok.Data;
 public class IssueJsonDto {
 
   @NotNull
-  @JsonProperty
   private UUID id;
   @NotNull
-  @JsonProperty
   private String targetUri;
-  @JsonProperty
   private String image;
   @NotNull
-  @JsonProperty
   private String description;
   @NotNull
-  @JsonProperty
   @Enumerated(EnumType.STRING)
   private StagesEnum stage;
   @NotNull
-  @JsonProperty
   private String clientName;
   @NotNull
-  @JsonProperty
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date createdAt;
   @NotNull
-  @JsonProperty
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date updatedAt;
 
 }

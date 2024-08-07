@@ -1,5 +1,6 @@
 package com.company.support.services.comments;
 
+import com.company.support.dto.generators.GeneratorInterface;
 import com.company.support.dto.merge.CommentMergeInterface;
 import com.company.support.dto.mappers.CommentMapperInterface;
 import com.company.support.dto.request.CreateCommentParamsDto;
@@ -27,10 +28,11 @@ public class CommentsService implements CommentsServiceInterface {
   public final IssueRepositoryInterface issueRepository;
   public final CommentMapperInterface mapper;
   public final CommentMergeInterface mergeParams;
+  public final GeneratorInterface generator;
 
   public ListJsonDto<List<CommentJsonDto>> getComments(UUID issueId, int pageSize, int page) {
 
-    if(!issueRepository.existsById(issueId)){
+    if (!issueRepository.existsById(issueId)) {
       throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
     }
 
@@ -39,23 +41,26 @@ public class CommentsService implements CommentsServiceInterface {
 
     long totalCount = repository.findByIssueIdCount(issueId);
 
-    List<CommentEntity> comments = repository.findByIssueId(issueId);
+    if (totalCount == 0) {
+      return generator.emptyResponseList(pageable.getPageSize(), pageable.getPageNumber(), PAGE_ONE);
+    }
+
+    List<CommentEntity> comments = repository.findByIssueId(issueId, pageable.getPageSize(), pageable.getOffset());
 
     List<CommentJsonDto> records = mapper.mapStreamToList(comments.stream());
 
     return new ListJsonDto<List<CommentJsonDto>>(
-            records,
-            pageable.getPageSize(),
-            pageable.getPageNumber() + PAGE_ONE,
-            (int)(totalCount / pageable.getPageSize()) + PAGE_ONE,
-            (int)totalCount
-    );
+        records,
+        pageable.getPageSize(),
+        pageable.getPageNumber() + PAGE_ONE,
+        (int) (totalCount / pageable.getPageSize()) + PAGE_ONE,
+        (int) totalCount);
 
   }
 
   public CommentJsonDto addComment(UUID issueId, CreateCommentParamsDto body) {
 
-    if(!issueRepository.existsById(issueId)){
+    if (!issueRepository.existsById(issueId)) {
       throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
     }
 

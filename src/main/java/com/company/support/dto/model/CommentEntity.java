@@ -1,16 +1,15 @@
 package com.company.support.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.executable.ValidateOnExecution;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @AllArgsConstructor
@@ -27,8 +26,9 @@ public class CommentEntity {
   private UUID issueId;
   @Column(name = "description")
   private String description;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @UpdateTimestamp
   @Column(name = "created_at")
-  @CreationTimestamp
   private Date createdAt;
   @Column(name = "client_id")
   private UUID clientId;
