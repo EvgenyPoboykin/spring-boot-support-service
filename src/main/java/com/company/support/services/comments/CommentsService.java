@@ -25,7 +25,7 @@ public class CommentsService implements CommentsServiceInterface {
   public final CommentMapperInterface mapper;
   public final CommentMergeInterface mergeParams;
 
-  public List<CommentJsonDto> getComments(UUID issueId, int pageSize, int page) {
+  public List<CommentJsonDto> getComments(UUID issueId) {
 
     if(!issueRepository.existsById(issueId)){
       throw new NoFoundException("Issue with id=" + issueId + " is not exists!");

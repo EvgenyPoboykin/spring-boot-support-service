@@ -1,10 +1,13 @@
 package com.company.support.dto.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.executable.ValidateOnExecution;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.Date;
 import java.util.UUID;

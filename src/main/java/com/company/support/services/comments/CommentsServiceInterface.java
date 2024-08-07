@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface CommentsServiceInterface {
 
-  List<CommentJsonDto> getComments(UUID issueId, int pageSize, int page);
+  List<CommentJsonDto> getComments(UUID issueId);
 
   CommentJsonDto addComment(UUID issueId, CreateCommentParamsDto issue);
 

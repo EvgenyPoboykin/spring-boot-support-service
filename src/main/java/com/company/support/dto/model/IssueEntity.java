@@ -32,7 +32,7 @@ public class IssueEntity {
   @Enumerated(EnumType.STRING)
   @Column(name = "stage")
   @ColumnDefault(value = "NEW")
-  private StagesEnum stage;
+  private StagesEnum stage = StagesEnum.NEW;
   @Column(name = "client_id")
   private UUID clientId;
   @Column(name = "client_name")

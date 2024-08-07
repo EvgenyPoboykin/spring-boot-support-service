@@ -17,17 +17,20 @@ import java.util.UUID;
 @Repository
 public interface IssueRepositoryInterface extends CrudRepository<IssueEntity, UUID> {
 
-  @Query(value = "select u from Issue u where u.clientId = ?1 order by u.createdAt desc")
-  List<IssueEntity> findByClientId(@Param("clientId") UUID clientId);
+  @Query(value = "select u from Issue u where u.clientId = :clientId order by u.createdAt desc limit :limit offset :offset")
+  List<IssueEntity> findByClientId(@Param("clientId") UUID clientId, @Param("limit") int limit, @Param("offset") Long offset);
+
+  @Query(value = "select u from Issue u order by u.createdAt desc limit :limit offset :offset")
+  List<IssueEntity> findByAdmin(@Param("limit") int limit, @Param("offset") Long offset);
 
   @Modifying(clearAutomatically = true)
   @Query(value = "update Issue u set u.stage = :stage , u.updatedAt = :updatedAt where u.id = :id")
   @Transactional
-  Long updateIssue(@Param("stage") StagesEnum stage, @Param("updatedAt") Date updateAt, @Param("id") UUID id);
+  void updateIssue(@Param("stage") StagesEnum stage, @Param("updatedAt") Date updateAt, @Param("id") UUID id);
 
   @Modifying(clearAutomatically = true)
   @Query(value = "delete Issue u where u.id = :id and u.clientId = :clientId")
   @Transactional
-  Long deleteIssue(@Param("id") UUID id, @Param("clientId") UUID clientId);
+  void deleteIssue(@Param("id") UUID id, @Param("clientId") UUID clientId);
 
 }

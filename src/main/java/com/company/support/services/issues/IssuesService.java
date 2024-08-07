@@ -12,6 +12,8 @@ import com.company.support.dto.response.SuccessDto;
 import com.company.support.exception.NoFoundException;
 import com.company.support.repository.IssueRepositoryInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,25 +28,34 @@ public class IssuesService implements IssuesServiceInterface {
   public final IssueMapperInterface mapper;
   public final IssueMergeParamsInterface merge;
 
+  private List<IssueJsonDto> getIssuesByClient(UUID id, int limit, Long offset){
+    List<IssueEntity> issues = repository.findByClientId(id, limit, offset);
+
+    return mapper.mapStreamToList(issues.stream());
+  }
+
+  private List<IssueJsonDto> getIssuesByAdmin(int limit, Long offset){
+    List<IssueEntity> issues = new ArrayList<>();
+
+    Iterable<IssueEntity> issuesAdmin = repository.findByAdmin(limit, offset);
+
+    issuesAdmin.forEach(issues::add);
+
+    return mapper.mapStreamToList(issues.stream());
+  }
+
   public List<IssueJsonDto> getIssues(int pageSize, int page) {
     // убрать после перехода на jwt
-    var id = UUID.randomUUID();
+    var clientId = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+    Pageable pageable = PageRequest.of(page - 1, pageSize);
 
-    if (id.toString().isEmpty()) {
+    if (!clientId.toString().isEmpty()) {
 
-      List<IssueEntity> issues = repository.findByClientId(id);
-
-      return mapper.mapStreamToList(issues.stream());
+      return getIssuesByClient(clientId, pageable.getPageSize(), pageable.getOffset());
 
     } else {
 
-      List<IssueEntity> issues = new ArrayList<>();
-
-      Iterable<IssueEntity> issuesAdmin = repository.findAll();
-
-      issuesAdmin.forEach(issues::add);
-
-      return mapper.mapStreamToList(issues.stream());
+      return getIssuesByAdmin(pageable.getPageSize(), pageable.getOffset());
 
     }
 

@@ -1,6 +1,5 @@
 package com.company.support.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -10,10 +9,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class ListParamsDto {
 
-  @Min(25)
-  @Max(100)
+  @Min(value = 25, message = "pageSize min value must to be >= 25")
+  @Max(value = 100, message = "pageSize max value must to be <= 101")
   private int pageSize;
-  @Min(1)
+  @Min(value = 1, message = "page min value must to be > 0")
   private int page;
 
 }

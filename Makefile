@@ -6,11 +6,14 @@ POSTGRES_VERSION=postgres
 db.container:
 	docker run --name ${POSTGRES_DATA} -p ${POSTGRES_PORT}:5432 -e POSTGRES_PASSWORD=${POSTGRES_DATA} -e POSTGRES_USER=${POSTGRES_DATA} -d ${POSTGRES_VERSION}
 
-db.create:
-	docker exec -it ${POSTGRES_DATA} createdb --username=${POSTGRES_DATA} --owner=${POSTGRES_DATA} ${POSTGRES_DATA}
-
 container.start:
-	docker start ${POSTGRES_DATA}
+	@echo "Start ${POSTGRES_DATA} container..."
+	if [ $$(docker ps -q) ]; then \
+  		echo "Container ${POSTGRES_DATA} is started!"; \
+	else \
+		echo "Start ${POSTGRES_DATA} container..."; \
+		docker start ${POSTGRES_DATA}; \
+	fi
 
 container.stop:
 	@echo "Stop ${POSTGRES_DATA} container..."
@@ -24,8 +27,5 @@ container.stop:
 project.build:
 	gradle build
 
-project.dev: project.build
+project.dev: container.start project.build
 	./gradlew bootRun
-
-project.api:
-	gradle api:publishToMavenLocal

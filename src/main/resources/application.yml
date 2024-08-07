@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: support
+  datasource:
+    url: jdbc:postgresql://localhost:5858/dbsupport
+    password: dbsupport
+    username: dbsupport
+    driver-class-name: org.postgresql.Driver

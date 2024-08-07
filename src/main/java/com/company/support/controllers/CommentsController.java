@@ -7,8 +7,7 @@ import com.company.support.services.comments.CommentsServiceInterface;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +23,8 @@ public class CommentsController implements CommentsControllerInterface {
 
   @Override
   @Operation(summary = "Получить все комментарии по заявке")
-  public List<CommentJsonDto> getComments(@PathVariable UUID issueId, @RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
-    return commentsService.getComments(issueId, pageSize, page);
+  public List<CommentJsonDto> getComments(@PathVariable UUID issueId) {
+    return commentsService.getComments(issueId);
   }
 
   @Override
