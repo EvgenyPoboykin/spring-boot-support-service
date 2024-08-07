@@ -10,7 +10,10 @@ import java.util.UUID;
 
 public interface CommentRepositoryInterface extends CrudRepository<CommentEntity, UUID> {
 
-  @Query(value = "select u from Comment u where u.issueId = ?1 order by u.createdAt desc")
+  @Query(value = "select u from Comment u where u.issueId = :issueId order by u.createdAt desc")
   List<CommentEntity> findByIssueId(@Param("issueId") UUID issueId);
+
+  @Query(value = "select count(u) from Comment u where u.issueId = :issueId")
+  long findByIssueIdCount(@Param("issueId") UUID issueId);
 
 }

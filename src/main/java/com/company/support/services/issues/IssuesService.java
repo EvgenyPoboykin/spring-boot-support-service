@@ -5,9 +5,9 @@ import com.company.support.dto.merge.IssueMergeParamsInterface;
 import com.company.support.dto.model.IssueEntity;
 import com.company.support.dto.model.IssueJsonDto;
 import com.company.support.dto.request.CreateIssueParamsDto;
-import com.company.support.dto.request.ListParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsMerge;
+import com.company.support.dto.response.ListJsonDto;
 import com.company.support.dto.response.SuccessDto;
 import com.company.support.exception.NoFoundException;
 import com.company.support.repository.IssueRepositoryInterface;
@@ -44,18 +44,40 @@ public class IssuesService implements IssuesServiceInterface {
     return mapper.mapStreamToList(issues.stream());
   }
 
-  public List<IssueJsonDto> getIssues(int pageSize, int page) {
+  public ListJsonDto<List<IssueJsonDto>> getIssues(int pageSize, int page) {
     // убрать после перехода на jwt
-    var clientId = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6");
-    Pageable pageable = PageRequest.of(page - 1, pageSize);
+    var clientId = UUID.fromString("71aa2970-4f55-4ca2-977e-9606d0c53e9a");
+
+    int PAGE_ONE = 1;
+    Pageable pageable = PageRequest.of(page - PAGE_ONE, pageSize);
 
     if (!clientId.toString().isEmpty()) {
 
-      return getIssuesByClient(clientId, pageable.getPageSize(), pageable.getOffset());
+      long totalCount = repository.findByClientIdCount(clientId);
+
+      List<IssueJsonDto> records = getIssuesByClient(clientId, pageable.getPageSize(), pageable.getOffset());
+
+      return new ListJsonDto<List<IssueJsonDto>>(
+          records,
+          pageable.getPageSize(),
+          pageable.getPageNumber() + PAGE_ONE,
+          (int)(totalCount / pageable.getPageSize()) + PAGE_ONE,
+          (int)totalCount
+      );
 
     } else {
 
-      return getIssuesByAdmin(pageable.getPageSize(), pageable.getOffset());
+      long totalCount = repository.findByAdminCount();
+
+      List<IssueJsonDto> records = getIssuesByAdmin(pageable.getPageSize(), pageable.getOffset());
+
+      return new ListJsonDto<List<IssueJsonDto>>(
+              records,
+              pageable.getPageSize(),
+              pageable.getPageNumber() + PAGE_ONE,
+              (int)(totalCount / pageable.getPageSize()) + PAGE_ONE,
+              (int)totalCount
+      );
 
     }
 
@@ -92,7 +114,7 @@ public class IssuesService implements IssuesServiceInterface {
     }
 
     // убрать после перехода на jwt
-    var clientId = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+    var clientId = UUID.fromString("71aa2970-4f55-4ca2-977e-9606d0c53e9a");
 
     repository.deleteIssue(issueId, clientId);
 

@@ -4,6 +4,7 @@ package com.company.support.api;
 import com.company.support.dto.model.IssueJsonDto;
 import com.company.support.dto.request.CreateIssueParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsDto;
+import com.company.support.dto.response.ListJsonDto;
 import com.company.support.dto.response.SuccessDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -19,7 +20,7 @@ import java.util.UUID;
 public interface IssuesControllerInterface {
 
   @GetMapping(path = "/issues", produces = MediaType.APPLICATION_JSON_VALUE)
-  List<IssueJsonDto> getIssues(@RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page);
+  ListJsonDto<List<IssueJsonDto>> getIssues(@RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page);
 
   @PutMapping(path = "/issues", produces = MediaType.APPLICATION_JSON_VALUE)
   IssueJsonDto createIssue(@Valid @RequestBody CreateIssueParamsDto issue);

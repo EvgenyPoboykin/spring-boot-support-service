@@ -20,8 +20,14 @@ public interface IssueRepositoryInterface extends CrudRepository<IssueEntity, UU
   @Query(value = "select u from Issue u where u.clientId = :clientId order by u.createdAt desc limit :limit offset :offset")
   List<IssueEntity> findByClientId(@Param("clientId") UUID clientId, @Param("limit") int limit, @Param("offset") Long offset);
 
+  @Query(value = "select count(u) from Issue u where u.clientId = :clientId")
+  long findByClientIdCount(@Param("clientId") UUID clientId);
+
   @Query(value = "select u from Issue u order by u.createdAt desc limit :limit offset :offset")
   List<IssueEntity> findByAdmin(@Param("limit") int limit, @Param("offset") Long offset);
+
+  @Query(value = "select count(u) from Issue u")
+  long findByAdminCount();
 
   @Modifying(clearAutomatically = true)
   @Query(value = "update Issue u set u.stage = :stage , u.updatedAt = :updatedAt where u.id = :id")

@@ -4,6 +4,7 @@ import com.company.support.api.IssuesControllerInterface;
 import com.company.support.dto.model.IssueJsonDto;
 import com.company.support.dto.request.CreateIssueParamsDto;
 import com.company.support.dto.request.UpdateIssueParamsDto;
+import com.company.support.dto.response.ListJsonDto;
 import com.company.support.dto.response.SuccessDto;
 import com.company.support.services.issues.IssuesServiceInterface;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +30,7 @@ public class IssuesController implements IssuesControllerInterface {
   public final IssuesServiceInterface issuesService;
 
   @Operation(summary = "Получить список заявок")
-  public List<IssueJsonDto> getIssues(@RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
+  public ListJsonDto<List<IssueJsonDto>> getIssues(@RequestParam(name = "pageSize", defaultValue = "25") @Min(5) @Max(100) int pageSize, @RequestParam(name = "page", defaultValue = "1") @Min(1) int page) {
 
     return issuesService.getIssues(pageSize, page);
 

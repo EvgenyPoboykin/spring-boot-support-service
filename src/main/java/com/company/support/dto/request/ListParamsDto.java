@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ListParamsDto {
 
-  @Min(value = 25, message = "pageSize min value must to be >= 25")
+  @Min(value = 10, message = "pageSize min value must to be >= 10")
   @Max(value = 100, message = "pageSize max value must to be <= 101")
   private int pageSize;
   @Min(value = 1, message = "page min value must to be > 0")
