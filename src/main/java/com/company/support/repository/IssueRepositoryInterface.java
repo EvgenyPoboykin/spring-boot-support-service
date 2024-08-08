@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,7 +33,7 @@ public interface IssueRepositoryInterface extends CrudRepository<IssueEntity, UU
   @Modifying(clearAutomatically = true)
   @Query(value = "update Issue u set u.stage = :stage , u.updatedAt = :updatedAt where u.id = :id")
   @Transactional
-  void updateIssue(@Param("stage") StagesEnum stage, @Param("updatedAt") LocalDate updateAt, @Param("id") UUID id);
+  void updateIssue(@Param("stage") StagesEnum stage, @Param("updatedAt") LocalDateTime updateAt, @Param("id") UUID id);
 
   @Modifying(clearAutomatically = true)
   @Query(value = "delete Issue u where u.id = :id and u.clientId = :clientId")

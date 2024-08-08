@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -25,6 +25,6 @@ public class UpdateIssueParamsMerge {
   private UUID issueId;
   @NotNull
   @UpdateTimestamp
-  private LocalDate updatedAt;
+  private LocalDateTime updatedAt;
 
 }

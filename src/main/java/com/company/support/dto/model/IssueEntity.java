@@ -10,7 +10,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -41,10 +41,10 @@ public class IssueEntity {
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @CreationTimestamp
   @Column(name = "created_at")
-  private Date createdAt;
+  private LocalDateTime createdAt;
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @UpdateTimestamp
   @Column(name = "updated_at")
-  private Date updatedAt;
+  private LocalDateTime updatedAt;
 
 }

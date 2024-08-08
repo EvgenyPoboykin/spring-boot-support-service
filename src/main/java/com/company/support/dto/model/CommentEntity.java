@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,7 +29,7 @@ public class CommentEntity {
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @UpdateTimestamp
   @Column(name = "created_at")
-  private Date createdAt;
+  private LocalDateTime createdAt;
   @Column(name = "client_id")
   private UUID clientId;
   @Column(name = "client_name")

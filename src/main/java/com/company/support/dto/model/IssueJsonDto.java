@@ -1,6 +1,6 @@
 package com.company.support.dto.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -29,9 +29,9 @@ public class IssueJsonDto {
   private String clientName;
   @NotNull
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date createdAt;
+  private LocalDateTime createdAt;
   @NotNull
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date updatedAt;
+  private LocalDateTime updatedAt;
 
 }
