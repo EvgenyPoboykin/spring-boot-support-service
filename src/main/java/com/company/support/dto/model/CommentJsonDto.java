@@ -3,6 +3,8 @@ package com.company.support.dto.model;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class CommentJsonDto {
 
   @NotNull

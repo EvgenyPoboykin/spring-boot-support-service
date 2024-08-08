@@ -21,18 +21,18 @@ public class CommentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "id")
-  private UUID id;
+  UUID id;
   @Column(name = "issue_id")
-  private UUID issueId;
+  UUID issueId;
   @Column(name = "description")
-  private String description;
+  String description;
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @UpdateTimestamp
   @Column(name = "created_at")
-  private LocalDateTime createdAt;
+  LocalDateTime createdAt;
   @Column(name = "client_id")
-  private UUID clientId;
+  UUID clientId;
   @Column(name = "client_name")
-  private String clientName;
+  String clientName;
 
 }

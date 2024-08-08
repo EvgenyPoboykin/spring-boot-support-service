@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +48,7 @@ public class CommentsService implements CommentsServiceInterface {
 
     List<CommentEntity> comments = repository.findByIssueId(issueId, pageable.getPageSize(), pageable.getOffset());
 
-    List<CommentJsonDto> records = mapper.mapStreamToList(comments.stream());
+    List<CommentJsonDto> records = comments.stream().map(mapper::mapEntityToJson).collect(Collectors.toList());
 
     return new ListJsonDto<List<CommentJsonDto>>(
         records,
