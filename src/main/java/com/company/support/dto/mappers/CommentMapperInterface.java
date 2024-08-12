@@ -8,8 +8,6 @@ public interface CommentMapperInterface {
 
   CommentEntity mapCreateCommentJsonToEntity(CreateCommentParamsMerge args);
 
-  CommentEntity mapJsonToEntity(CommentJsonDto args);
-
   CommentJsonDto mapEntityToJson(CommentEntity args);
 
 }

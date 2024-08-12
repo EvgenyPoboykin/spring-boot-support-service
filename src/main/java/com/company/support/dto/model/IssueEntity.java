@@ -6,10 +6,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -18,29 +18,28 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity(name = "Issue")
 @Table(name = "issue")
-public class IssueEntity {
+public class IssueEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "id")
+  @Column(name = "id", insertable = false, updatable = false)
   private UUID id;
-  @Column(name = "target_uri")
+  @Column(name = "target_uri", updatable = false)
   private String targetUri;
-  @Column(name = "image")
+  @Column(name = "image", updatable = false)
   private String image;
-  @Column(name = "description")
+  @Column(name = "description", updatable = false)
   private String description;
   @Enumerated(EnumType.STRING)
   @Column(name = "stage")
-  @ColumnDefault(value = "NEW")
   private StagesEnum stage = StagesEnum.NEW;
-  @Column(name = "client_id")
+  @Column(name = "client_id", updatable = false)
   private UUID clientId;
-  @Column(name = "client_name")
+  @Column(name = "client_name", updatable = false)
   private String clientName;
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @CreationTimestamp
-  @Column(name = "created_at")
+  @Column(name = "created_at", insertable = false, updatable = false)
   private LocalDateTime createdAt;
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @UpdateTimestamp

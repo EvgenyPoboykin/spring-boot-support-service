@@ -20,11 +20,6 @@ public final class CommentMapper implements CommentMapperInterface {
     return modelMapper.map(args, CommentEntity.class);
   }
 
-  public CommentEntity mapJsonToEntity(CommentJsonDto args) {
-
-    return modelMapper.map(args, CommentEntity.class);
-  }
-
   public CommentJsonDto mapEntityToJson(CommentEntity args) {
 
     return modelMapper.map(args, CommentJsonDto.class);

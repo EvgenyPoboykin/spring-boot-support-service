@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,23 +18,23 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor
 @Entity(name = "Comment")
 @Table(name = "comment")
-public class CommentEntity {
+public class CommentEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "id")
+  @Column(name = "id", insertable = false, updatable = false)
   UUID id;
-  @Column(name = "issue_id")
+  @Column(name = "issue_id", updatable = false)
   UUID issueId;
-  @Column(name = "description")
+  @Column(name = "description", updatable = false)
   String description;
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @UpdateTimestamp
-  @Column(name = "created_at")
+  @Column(name = "created_at", insertable = false, updatable = false)
   LocalDateTime createdAt;
-  @Column(name = "client_id")
+  @Column(name = "client_id", updatable = false)
   UUID clientId;
-  @Column(name = "client_name")
+  @Column(name = "client_name", updatable = false)
   String clientName;
 
 }

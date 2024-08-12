@@ -6,3 +6,7 @@ spring:
     password: dbsupport
     username: dbsupport
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+

@@ -3,6 +3,7 @@ package com.company.support.services.comments;
 import com.company.support.dto.generators.GeneratorInterface;
 import com.company.support.dto.merge.CommentMergeInterface;
 import com.company.support.dto.mappers.CommentMapperInterface;
+import com.company.support.dto.model.IssueEntity;
 import com.company.support.dto.request.CreateCommentParamsDto;
 import com.company.support.dto.request.CreateCommentParamsMerge;
 import com.company.support.dto.model.CommentEntity;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -36,6 +38,8 @@ public class CommentsService implements CommentsServiceInterface {
     if (!issueRepository.existsById(issueId)) {
       throw new NoFoundException("Issue with id=" + issueId + " is not exists!");
     }
+
+
 
     int PAGE_ONE = 1;
     Pageable pageable = PageRequest.of(page - PAGE_ONE, pageSize);
