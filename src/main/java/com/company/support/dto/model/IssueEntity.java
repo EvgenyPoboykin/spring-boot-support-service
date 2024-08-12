@@ -17,7 +17,6 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity(name = "Issue")
 @Table(name = "issue")
 public class IssueEntity implements Serializable {
