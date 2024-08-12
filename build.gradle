@@ -53,7 +53,7 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testImplementation "junit:junit:4.13.1"
+	testImplementation "junit:junit:4.13.1"
 	testImplementation 'com.h2database:h2'
 //	testImplementation "org.hibernate:hibernate-core:6.5.2.Final"
 //	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
