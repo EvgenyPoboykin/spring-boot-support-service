@@ -14,10 +14,17 @@ public class MockAssets {
 
   public final UUID issueId_1 =  UUID.fromString("39b577bb-9370-4b2c-8a63-db02dd36b1d4");
 
-  public final CommentEntity comment_1 = CommentEntity
+  public final CommentEntity comment_0 = CommentEntity
             .builder()
             .issueId(issueId_0)
-            .description("test")
+            .description("test 0")
+            .clientId(clientId_1)
+            .clientName(clientName_1).build();
+
+  public final CommentEntity comment_1 = CommentEntity
+            .builder()
+            .issueId(issueId_1)
+            .description("test 1")
             .clientId(clientId_1)
             .clientName(clientName_1).build();
 

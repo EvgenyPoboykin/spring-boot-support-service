@@ -15,31 +15,31 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class CommentRepositoryInterfaceTest {
 
     private final MockAssets assets = new MockAssets();
 
-
     @Autowired
     CommentRepositoryInterface commentRepository;
 
     @Test
     void itShouldCreateSaveComment() {
-        CommentEntity c = commentRepository.save(assets.comment_1);
+        CommentEntity c = commentRepository.save(assets.comment_0);
         commentRepository.flush();
 
-        assertEquals(c.getIssueId(), assets.comment_1.getIssueId());
-        assertEquals(c.getDescription(), assets.comment_1.getDescription());
-        assertEquals(c.getClientId(), assets.comment_1.getClientId());
-        assertEquals(c.getClientName(), assets.comment_1.getClientName());
+        assertEquals(c.getIssueId(), assets.comment_0.getIssueId());
+        assertEquals(c.getDescription(), assets.comment_0.getDescription());
+        assertEquals(c.getClientId(), assets.comment_0.getClientId());
+        assertEquals(c.getClientName(), assets.comment_0.getClientName());
     }
 
     @Test
     void findByIssueId() {
         // given
+        commentRepository.save(assets.comment_0);
         commentRepository.save(assets.comment_1);
         commentRepository.flush();
         // where
